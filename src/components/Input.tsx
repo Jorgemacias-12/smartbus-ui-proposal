@@ -3,7 +3,6 @@ import {
   useEffect,
   useState,
   type ChangeEvent,
-  type HTMLAttributes,
   type InputHTMLAttributes,
   type KeyboardEvent,
 } from "react";
@@ -47,7 +46,11 @@ export const Input = ({
   const [inputValidationClass, setInputValidationClass] = useState<string>("");
   const [labelValidationClass, setLabelValidationClass] = useState<string>("");
 
-  const regex = new RegExp(validationCriteria?.pattern!);
+  let regex: RegExp | null = null;
+
+  if (validationCriteria && validationCriteria.pattern) {
+    regex = new RegExp(validationCriteria.pattern);
+  }
 
   const handleOnInput = (event: ChangeEvent<HTMLInputElement>) => {
     const inputEl = event.target as HTMLInputElement;
@@ -92,7 +95,7 @@ export const Input = ({
           `El campo ${label} no debe exceder los ${validationCriteria.max} caracteres.`
         );
         hasError = true;
-      } else if (validationCriteria && !regex.test(value)) {
+      } else if (validationCriteria && regex && !regex.test(value)) {
         setLabelValidationClass("text-red-500");
         setInputValidationClass("border-red-500");
         setError(validationCriteria.patternNotMatchMessage);

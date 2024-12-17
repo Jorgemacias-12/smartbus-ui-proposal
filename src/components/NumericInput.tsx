@@ -25,10 +25,8 @@ export const NumericInput = ({
   required,
   disabled,
   initialValue,
-  className,
   containerClassNames,
   onInput,
-  onKeyDown,
   onValidationError,
   onClear,
 }: Props) => {

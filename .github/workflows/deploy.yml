@@ -36,11 +36,11 @@ jobs:
         env:
           NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN: ${{ secrets.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN }}
 
-      # Paso 6: Desplegar en Vercel con el equipo configurado
+      # Paso 6: Desplegar en Vercel con confirmación automática
       - name: Deploy to Vercel
         uses: amondnet/vercel-action@v20
         with:
           vercel-token: ${{ secrets.VERCEL_TOKEN }}
-          vercel-args: '--prod'
+          vercel-args: '--prod --yes' # Agrega el flag --yes para confirmar automáticamente
           working-directory: .
           scope: ${{ secrets.VERCEL_SCOPE }}

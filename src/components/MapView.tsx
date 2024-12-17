@@ -9,8 +9,8 @@ interface Props {
 }
 
 export const MapView = ({ lat, lng }: Props) => {
-  let mapEl = useRef<HTMLDivElement | null>(null);
-  let mapRef = useRef<mapboxgl.Map | null>(null);
+  const mapEl = useRef<HTMLDivElement | null>(null);
+  const mapRef = useRef<mapboxgl.Map | null>(null);
 
   useEffect(() => {
     if (!mapEl.current || mapRef.current) {
@@ -23,7 +23,7 @@ export const MapView = ({ lat, lng }: Props) => {
       pitchWithRotate: false,
       center: [lng, lat] as [number, number],
       zoom: 15,
-      accessToken: import.meta.env.PUBLIC_MAPBOX_ACCESS_TOKEN,
+      accessToken: process.env.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN,
       doubleClickZoom: false,
     });
 
@@ -31,7 +31,7 @@ export const MapView = ({ lat, lng }: Props) => {
       mapRef.current?.remove();
       mapRef.current = null;
     };
-  }, []);
+  }, [lat, lng]);
 
   return <article className="flex w-full h-full flex-1" ref={mapEl}></article>;
 };

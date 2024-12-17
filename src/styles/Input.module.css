@@ -1,0 +1,47 @@
+.container {
+  @apply flex flex-col relative w-full gap-2;
+}
+
+.label {
+  @apply absolute transition-all duration-300 ease-in-out ml-2 top-1/2 transform -translate-y-1/2;
+}
+
+.input:focus ~ .label {
+  @apply text-sm top-3;
+}
+
+.input:focus ~ .label,
+.input:not(:placeholder-shown) ~ .label {
+  @apply text-sm top-3;
+}
+
+.input {
+  @apply flex relative h-14 pl-2 pt-4 outline-none border;
+}
+
+.input:read-only {
+  @apply text-gray-400;
+}
+
+.input[data-theme="light"]:disabled,
+.input[data-theme="dark"]:disabled {
+  @apply text-gray-400;
+}
+
+.input[type="number"]::-webkit-inner-spin-button,
+.input[type="number"]::-webkit-outer-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.input:focus {
+  @apply border-blue-400;
+}
+
+.input:focus + .label {
+  @apply text-blue-400;
+}
+
+.revealButton {
+  @apply absolute flex justify-center items-center w-8 h-8 top-1/2 right-0 transform -translate-y-1/2 mr-2;
+}

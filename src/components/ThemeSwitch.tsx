@@ -1,21 +1,27 @@
 import { Moon, Sun } from "lucide-react";
 import { Switch } from "./Switch";
-import { useEffect } from "react";
-import { useStore } from "@nanostores/react";
 import { $theme } from "@/stores";
-import { getThemeBasedOnUserPreference } from "@/utils";
+import { useEffect, useState } from "react";
 
 export const ThemeSwitch = () => {
-  const theme = useStore($theme);
+  const [isClient, setIsClient] = useState(false);
 
-  const onValueChanged = (state: boolean) => {
+  useEffect(() => {
+    setIsClient(true);
+  }, []);
+
+  const onValueChanged = () => {
     $theme.set($theme.get() === "light" ? "dark" : "light");
   };
+
+  if (!isClient) {
+    return null;
+  }
 
   return (
     <Switch
       defaultState={$theme.get() === "light"}
-      icons={[<Moon />, <Sun />]}
+      icons={[<Moon key={1} />, <Sun key={2} />]}
       title="Theme switch light/dark"
       onClick={onValueChanged}
     />

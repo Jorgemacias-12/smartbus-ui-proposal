@@ -19,7 +19,7 @@ export const Select = ({ id, label, data, rounded, caption }: Props) => {
     setIsOpen(!isOpen);
   };
 
-  const handleSelectOptions = (option: any) => {
+  const handleSelectOptions = (option: Data) => {
     setOption(option);
     setIsOpen(false);
   };
@@ -28,10 +28,12 @@ export const Select = ({ id, label, data, rounded, caption }: Props) => {
     ? "visible opacity-100 translate-y-1"
     : "invisible opacity-0 translate-y-0";
 
-  const themeClassNames = "dark:bg-black_rain";
+  const themeClassNames = "dark:bg-black_rain dark:border-black_rain-900";
 
   return (
-    <section className={`${styles.container} ${rounded ? "rounded-md" : ""}`}>
+    <section
+      className={`${styles.container}`}
+    >
       <label htmlFor={id} className={styles.label}>
         {label}
       </label>
@@ -44,9 +46,10 @@ export const Select = ({ id, label, data, rounded, caption }: Props) => {
             onClick={handleClick}
             readOnly
             value={option.name}
-            className={`${styles.selectorButton} ${themeClassNames}`}
+            className={`${styles.selectorButton} ${themeClassNames} ${rounded ? "rounded-md" : ""}`}
           />
         )}
+
         {option && <input value={option.value} name={id} type="hidden" />}
 
         {!option && (
@@ -55,7 +58,7 @@ export const Select = ({ id, label, data, rounded, caption }: Props) => {
             type="text"
             onClick={handleClick}
             onFocus={handleClick}
-            className={`${styles.selectorButton} text-gray-500 ${themeClassNames}`}
+            className={`${styles.selectorButton} text-gray-500 ${themeClassNames} ${rounded ? "rounded-md" : ""}`}
             readOnly
             value={caption}
           />
@@ -71,7 +74,7 @@ export const Select = ({ id, label, data, rounded, caption }: Props) => {
       </div>
 
       <div
-        className={`${styles.optionContainer} ${optionsModalClassNames} dark:bg-black_rain-800 dark:border-black_rain-950 border`}
+        className={`${styles.optionContainer} ${optionsModalClassNames} dark:bg-black_rain-800 dark:border-black_rain-950 border z-10`}
       >
         {data &&
           data.map((el, index) => {

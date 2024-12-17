@@ -1,0 +1,23 @@
+.container {
+  @apply flex flex-col relative w-full;
+}
+
+.selectorButton {
+  @apply border w-full h-14 text-left p-2 pt-6 pr-7 cursor-pointer;
+}
+
+.label {
+  @apply absolute -top-2.5 px-2 pt-3.5 text-sm;
+}
+
+.optionContainer {
+  @apply absolute flex flex-col top-16 left-0 border-b duration-300 transition-all transform w-full z-10 max-h-44 overflow-y-auto divide-y-1;
+}
+
+.selectorButton:focus {
+  @apply border border-blue-500 outline-none;
+}
+
+.optionButton {
+  @apply flex items-center justify-start h-10 pl-2;
+}

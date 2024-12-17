@@ -1,109 +1,68 @@
-import { $theme } from "@/stores";
-import { useStore } from "@nanostores/react";
-import styles from "@/styles/Select.module.css";
-import { useState } from "react";
-import "@/types";
-import type { Data } from "@/types";
+import React from "react";
+import Image from "next/image";
+import { Input } from "./Input";
 
-interface SelectProps {
-  id: string;
-  label?: string;
-  caption?: string;
-  data: Data[];
-  rounded?: boolean;
-}
-
-export const Select = ({ id, label, data, rounded, caption }: SelectProps) => {
-  const theme = useStore($theme);
-  const [option, setOption] = useState<Data | null>(null);
-  const [IsOpen, setIsOpen] = useState(false);
-
-  const applyRoundedStyles = rounded ? "rounded-md" : "";
-
-  const lightClassNames = "border bg-seasalt-900";
-  const darkClassNames = "border-raisin-black-600 bg-raisin-black";
-
-  const themeClassNames = theme === "light" ? lightClassNames : darkClassNames;
-
-  const containerBorder =
-    theme === "light" ? "border" : "border-raisin-black-600";
-
-  const optionsContainerHiddenStyles = "invisible opacity-0 translate-y-0";
-  const optionsContainerShowStyles = "visible opacity-100 translate-y-1";
-
-  const optionsModalClassNames = IsOpen
-    ? optionsContainerShowStyles
-    : optionsContainerHiddenStyles;
-
-  const handleClick = () => {
-    setIsOpen(!IsOpen);
-  };
-
-  const handleSelectOptions = (option: any) => {
-    setOption(option);
-    setIsOpen(false);
-  };
-
+export const example = () => {
   return (
-    <section className={styles.container}>
-      <label htmlFor={id} className={styles.label}>
-        {label}
-      </label>
-      <div className="flex items-center">
-        {option && (
-          <input
-            title={id}
+    <div>
+      <section className="flex-1 w-full h-full flex justify-center items-center">
+        <Image src="/smartbus.png" alt="" width="256" height="256" />
+      </section>
+
+      <form className="w-full px-4 h-fit flex flex-col gap-2">
+        <section>
+          <Input
             type="text"
-            onFocus={handleClick}
-            onClick={handleClick}
-            className={`${styles.selectorButton} ${applyRoundedStyles} ${themeClassNames} ${containerBorder}`}
-            readOnly
-            value={option.name}
+            id="login"
+            placeholder=" "
+            label="Correo electrónico o Nombre de usuario"
+            rounded
           />
-        )}
 
-        {!option && (
-          <input
-            title={id}
-            type="text"
-            onClick={handleClick}
-            onFocus={handleClick}
-            className={`${styles.selectorButton} ${applyRoundedStyles} ${themeClassNames} ${containerBorder}`}
-            readOnly
-            value={caption}
+          <Input
+            type="password"
+            id="password"
+            placeholder=" "
+            label="Contraseña"
+            rounded
           />
-        )}
+        </section>
 
-        {option && <input value={option.value} name={id} type="hidden" />}
-        <span
-          className={`absolute right-3 bottom-5  fas fa${
-            IsOpen ? "-angle-down" : "-angle-up"
-          }`}
-        ></span>
-      </div>
+        <button
+          type="button"
+          className="bg-smartbus_deepblue dark:bg-smartbus_emerald text-white px-2 rounded-full h-10 mx-8"
+        >
+          Iniciar sesión
+        </button>
+      </form>
 
-      <div
-        className={`${styles.optionContainer} ${applyRoundedStyles} ${themeClassNames} ${containerBorder} ${optionsModalClassNames}`}
-        data-theme={theme}
-      >
-        {data &&
-          data.map((el, index) => {
-            const { name } = el;
-            return (
-              <button
-                onClick={() => {
-                  handleSelectOptions(el);
-                }}
-                className={styles.optionButton}
-                type="button"
-                key={index}
-                data-theme={theme}
-              >
-                {name}
-              </button>
-            );
-          })}
-      </div>
-    </section>
+      <section className="w-full flex flex-col border-t p-4 gap-8 items-center">
+        <button
+          type="button"
+          className="px-4 py-2 border flex gap-2 border-slate-200 dark:border-slate-700 rounded-lg text-slate-700 dark:text-slate-200 hover:border-slate-400 dark:hover:border-slate-500 hover:text-slate-900 dark:hover:text-slate-300 hover:shadow transition duration-150 h-fit"
+        >
+          <Image
+            className="w-6 h-6"
+            src="https://www.svgrepo.com/show/475656/google-color.svg"
+            loading="lazy"
+            alt="google logo"
+            width={24}
+            height={24}
+          />
+          <span>Iniciar sesión con Google</span>
+        </button>
+
+        <p>O</p>
+
+        <a href="#" className="underline text-gray-500">
+          Registrarse
+        </a>
+
+        <p className="text-sm">
+          Todos los derechos reservados SmartBus {new Date().getFullYear()}.
+          &copy;
+        </p>
+      </section>
+    </div>
   );
 };

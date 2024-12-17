@@ -11,6 +11,7 @@
   "dependencies": {
     "@nanostores/persistent": "^0.10.2",
     "@nanostores/react": "^0.8.2",
+    "@next/env": "^15.1.0",
     "lucide-react": "^0.468.0",
     "mapbox-gl": "^3.8.0",
     "next": "15.1.0",

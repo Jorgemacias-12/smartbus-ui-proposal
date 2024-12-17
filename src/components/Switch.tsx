@@ -1,4 +1,4 @@
-import { useEffect, useState, type ReactNode } from "react";
+import { useState, type ReactNode } from "react";
 
 interface Props {
   icons?: ReactNode[];
@@ -25,7 +25,6 @@ export const Switch = ({
 
   const animationFalse = "translate-x-9";
   const animationTrue = "translate-x-2";
-
 
   return (
     <button

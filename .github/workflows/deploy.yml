@@ -1,0 +1,46 @@
+name: Deploy to Vercel
+
+on:
+  push:
+    tags:
+      - 'v*' # Solo se ejecuta si el tag comienza con 'v'
+  workflow_dispatch: # Permite ejecutar manualmente el workflow desde GitHub Actions
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      # Paso 1: Checar el repositorio
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      # Paso 2: Instalar Bun
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v1
+        with:
+          bun-version: latest
+
+      # Paso 3: Instalar dependencias con Bun
+      - name: Install dependencies
+        run: bun install
+
+      # Paso 4: Construir el proyecto con Bun
+      - name: Build project
+        run: bun run build
+
+      # Paso 5: Configurar variables de entorno
+      - name: Set up environment variables
+        run: |
+          echo NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN=$NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN >> .env
+        env:
+          NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN: ${{ secrets.NEXT_PUBLIC_MAPBOX_ACCESS_TOKEN }}
+
+      # Paso 6: Desplegar en Vercel con el equipo configurado
+      - name: Deploy to Vercel
+        uses: amondnet/vercel-action@v20
+        with:
+          vercel-token: ${{ secrets.VERCEL_TOKEN }}
+          vercel-args: '--prod'
+          working-directory: .
+          scope: ${{ secrets.VERCEL_SCOPE }}
